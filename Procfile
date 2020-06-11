@@ -1,1 +1,1 @@
-web: yarn watch-node
+web: yarn serve
