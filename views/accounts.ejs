@@ -4,24 +4,6 @@
 <head>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAr4VGvH98boxrVVoFpw5uZdcQREKcZPMw">
     </script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-    <script>
-        $(document).ready(function () {
-            $("button").click(function () {
-                $.ajax({
-                    url: "demo_test.txt", success: function (result) {
-                        $("#div1").html(result);
-                    }
-                });
-            });
-        });
-    </script>
-</head>
-
-<body>
-
-    <% var data; %>
 
     <script>
         function initialize() {
@@ -34,8 +16,11 @@
         }
         google.maps.event.addDomListener(window, 'load', initialize);
     </script>
+</head>
 
+<body>
 
+    <% var data; %>
     <div style="border: 1px solid black; width: 45%; padding: 20px; float:left">
         <% result.forEach(function(r) { %>
         <div style="border: 2px solid black; margin:auto; margin-top: 5px; width: 300px; text-align: center; ">
