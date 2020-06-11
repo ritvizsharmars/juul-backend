@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAr4VGvH98boxrVVoFpw5uZdcQREKcZPMw">
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $("button").click(function () {
+                $.ajax({
+                    url: "demo_test.txt", success: function (result) {
+                        $("#div1").html(result);
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+
+<body>
+
+    <% var data; %>
+
+    <script>
+        function initialize() {
+            var mapProp = {
+                center: new google.maps.LatLng(51.508742, -0.120850),
+                zoom: 5,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+        }
+        google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+
+    <div style="border: 1px solid black; width: 45%; padding: 20px; float:left">
+        <% result.forEach(function(r) { %>
+        <div style="border: 2px solid black; margin:auto; margin-top: 5px; width: 300px; text-align: center; ">
+            <p><%= r.name %></p>
+        </div>
+        <% }); %>
+    </div>
+
+    <% if (data) { %>
+    <div style="border: 1px solid black; width: 45%; padding: 20px; float:right; display:grid">
+
+        <div style="margin:auto; margin-top: 5px; text-align: center;display:-nline-grid; font-size: 20px ">
+            <p><%= result[0].name %> details</p>
+        </div>
+        <div
+            style="border: 2px solid black; margin:auto; margin-top: 5px; width: 300px; text-align: center;display:-nline-grid ">
+            <p><%= result[0].name %></p>
+        </div>
+        <div
+            style="border: 2px solid black; margin:auto; margin-top: 5px; width: 300px; text-align: center;display:-inline-grid ">
+            <p><%= result[0].phone %></p>
+        </div>
+        <div
+            style="border: 2px solid black; margin:auto; margin-top: 5px; width: 300px; text-align: center;display:-ms-inline-grid ">
+            <p><%= result[0].website %></p>
+        </div>
+        <div
+            style="border: 2px solid black; margin:auto; margin-top: 5px; width: 300px; text-align: center;display:-ms-inline-grid ">
+            <p><%= result[0].annualrevenue %></p>
+        </div>
+        <div
+            style="border: 2px solid black; margin:auto; margin-top: 5px; width: 300px; text-align: center;display:-ms-inline-grid ">
+            <p><%= result[0].industry %></p>
+        </div>
+        <div
+            style="border: 2px solid black; margin:auto; margin-top: 5px; width: 300px; text-align: center;display:-ms-inline-grid ">
+            <p><%= result[0].billingstreet %></p>
+        </div>
+    </div>
+    <% } %>
+
+    <div style="border: 1px solid black; width: 45%; padding: 20px; float:right; display:grid; margin-top: 50px">
+        <div id="googleMap" style="width:500px;height:300px; margin:auto;"></div>
+    </div>
+</body>
+
+</html>
