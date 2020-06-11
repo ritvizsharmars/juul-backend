@@ -11,8 +11,8 @@ interface Env {
 }
 
 // casting environment
-const envUnknown = process.env as unknown; // have to first cast to an unknown
-const env = envUnknown as Env; // can safely cast due to Avj validation
+const envUnknown = process.env as unknown;
+const env = envUnknown as Env;
 
 /** Processed environment */
 export default {

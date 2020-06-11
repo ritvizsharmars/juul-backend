@@ -28,24 +28,6 @@ export default class KnexClient extends EventEmitter {
 
   private seeds: Seeds | null = null;
 
-  private handlePoolCreateSuccess = (eventId: any, resource: any): void => {
-    resource.on("error", this.handleResourceError);
-  };
-
-  private handlePoolDestroyRequest = (eventId: any, resource: any): void => {
-    resource.off("error", this.handleResourceError);
-  };
-
-  private handleResourceError = (): void => {
-    // setImmediate did not allow for knex commands to fail first
-    setTimeout(() => {
-      this.emit(
-        "error",
-        new Error(`KnexClient: Pool resource error for: ${this.url}`)
-      );
-    }, 500);
-  };
-
   constructor(url: string | undefined, migrations?: Migrations, seeds?: Seeds) {
     super();
     this.url = url;
@@ -80,14 +62,9 @@ export default class KnexClient extends EventEmitter {
     if (this.privateConnected) {
       return;
     }
-    const { pool } = this.client.client;
-    pool.on("createSuccess", this.handlePoolCreateSuccess);
-    pool.on("destroyRequest", this.handlePoolDestroyRequest);
     try {
       await this.client.raw("SELECT 1");
     } catch (err) {
-      pool.removeListener("createSuccess", this.handlePoolCreateSuccess);
-      pool.removeListener("destroyRequest", this.handlePoolDestroyRequest);
       throw new Error(`KnexClient: Failed to connect to: ${this.url} ${err}`);
     }
     this.privateConnected = true;
